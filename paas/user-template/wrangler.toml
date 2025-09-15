@@ -5,3 +5,12 @@ compatibility_date = "2024-11-20"
 [observability]
 enabled = true
 
+[[d1_databases]]
+binding = "DB"
+# database_id = "<fill-after-create>"
+# database_name = "paas_user_db"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "paas-user-bucket"
+

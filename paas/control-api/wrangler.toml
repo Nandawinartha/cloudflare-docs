@@ -9,3 +9,7 @@ binding = "TENANT_MAP"
 [observability]
 enabled = true
 
+[vars]
+CF_API_BASE = "https://api.cloudflare.com/client/v4"
+# CF_ZONE_ID = "<set in env>"
+

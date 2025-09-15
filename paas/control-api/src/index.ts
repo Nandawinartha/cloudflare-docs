@@ -1,5 +1,7 @@
 export interface Env {
   TENANT_MAP: KVNamespace;
+  CF_API_BASE: string;
+  CF_ZONE_ID?: string;
 }
 
 type TenantRecord = {
@@ -66,6 +68,40 @@ export default {
       const key = `host:${hostname}`;
       await env.TENANT_MAP.delete(key);
       return json({ ok: true, hostname });
+    }
+
+    // SaaS endpoints (optional): create/delete custom hostname
+    if (pathname === "/saas/custom-hostnames" && request.method === "POST") {
+      const body = (await request.json().catch(() => null)) as { hostname?: string; method?: 'http' | 'txt' } | null;
+      if (!body?.hostname) return bad("hostname required");
+      const token = request.headers.get('authorization')?.replace(/^Bearer\s+/i, '') || '';
+      if (!token) return bad('missing bearer token', 401);
+      const zoneId = env.CF_ZONE_ID;
+      if (!zoneId) return bad('CF_ZONE_ID not configured', 500);
+      const apiUrl = `${env.CF_API_BASE}/zones/${zoneId}/custom_hostnames`;
+      const payload = {
+        hostname: body.hostname,
+        ssl: { method: body.method ?? 'http', type: 'dv' }
+      };
+      const resp = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'authorization': `Bearer ${token}`, 'content-type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await resp.json();
+      return new Response(JSON.stringify(data), { status: resp.status, headers: { 'content-type': 'application/json' } });
+    }
+
+    if (pathname.startsWith('/saas/custom-hostnames/') && request.method === 'DELETE') {
+      const id = pathname.split('/').pop() as string;
+      const token = request.headers.get('authorization')?.replace(/^Bearer\s+/i, '') || '';
+      if (!token) return bad('missing bearer token', 401);
+      const zoneId = env.CF_ZONE_ID;
+      if (!zoneId) return bad('CF_ZONE_ID not configured', 500);
+      const apiUrl = `${env.CF_API_BASE}/zones/${zoneId}/custom_hostnames/${encodeURIComponent(id)}`;
+      const resp = await fetch(apiUrl, { method: 'DELETE', headers: { 'authorization': `Bearer ${token}` } });
+      const data = await resp.json();
+      return new Response(JSON.stringify(data), { status: resp.status, headers: { 'content-type': 'application/json' } });
     }
 
     return bad("not found", 404);

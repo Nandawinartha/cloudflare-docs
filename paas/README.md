@@ -10,7 +10,8 @@ Architecture
 
 - dispatcher: Edge entrypoint, routes requests by Host header to a user worker via Dispatch Namespace. Stores hostname→tenant mapping in KV.
 - control-api: Management API for tenants. CRUD for hostname→tenant in KV, and optional Cloudflare for SaaS onboarding (create custom hostname) via REST API.
-- user-template: Example tenant/user Worker code. In production, user code should be created as a "User Worker" in the Dispatch Namespace.
+- user-template: Example tenant/user Worker code with D1 and R2 bindings. In production, user code should be created as a "User Worker" in the Dispatch Namespace.
+- dashboard: Minimal UI to create tenant mappings and Custom Hostnames (uses control API).
 - scripts: Helper scripts for creating custom hostnames (SSL for SaaS) and verifying tokens.
 
 Prerequisites
@@ -40,6 +41,10 @@ cd ../control-api
 # 3. User Worker template (optional demo)
 cd ../user-template
 # wrangler deploy --name user-hello
+
+# 4. Dashboard
+cd ../dashboard
+# wrangler deploy
 ```
 
 2) Configure bindings
@@ -102,4 +107,14 @@ References
 
 - Workers for Platforms: user workers, dynamic dispatch, hostname routing
 - SSL for SaaS (Custom Hostnames)
+
+D1 and R2
+
+- Create D1 DB and bind to user worker as `DB`. Example:
+  - `wrangler d1 create paas_user_db`
+  - Add `[[d1_databases]]` in user-template wrangler.toml with the generated database_id/name.
+- Create R2 bucket and bind to user worker as `BUCKET`.
+  - `wrangler r2 bucket create paas-user-bucket`
+  - Add `[[r2_buckets]]` in user-template wrangler.toml.
+
 

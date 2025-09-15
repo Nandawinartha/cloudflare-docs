@@ -1,0 +1,24 @@
+{
+  "name": "paas-next-template",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "cf:prepare": "npx @cloudflare/next-on-pages",
+    "cf:deploy": "node ../scripts/deploy-next.mjs"
+  },
+  "dependencies": {
+    "next": "^14.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.4",
+    "wrangler": "^3.80.0",
+    "typescript": "^5.5.4"
+  }
+}
+

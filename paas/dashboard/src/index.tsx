@@ -40,6 +40,16 @@ app.get('/', c => c.html(`
   <pre id="saasRes"></pre>
 </div>
 
+<div class="card">
+  <h2>Deploy Next.js tenant app</h2>
+  <ol>
+    <li>Open terminal in <code>paas/next-template</code></li>
+    <li>Run <code>npm install</code></li>
+    <li>Run <code>CF_ACCOUNT_ID=... USER_WORKER_NAME=&lt;userId&gt; node ../scripts/deploy-next.mjs</code></li>
+    <li>Create tenant mapping to that <code>userId</code> above</li>
+  </ol>
+</div>
+
 <script>
 const BASE = ${JSON.stringify(c.env.CONTROL_API_URL)}
 async function createTenant(){

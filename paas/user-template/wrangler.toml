@@ -1,16 +1,18 @@
 name = "user-template"
 main = "src/index.ts"
 compatibility_date = "2024-11-20"
+account_id = "a2aee84f5a0f8d217fe5387544f5bcb3"
 
 [observability]
 enabled = true
 
 [[d1_databases]]
 binding = "DB"
-# database_id = "<fill-after-create>"
-# database_name = "paas_user_db"
+database_id = "58511bf1-8eec-42a7-b074-030e499a3144"
+database_name = "paas_user_db"
 
 [[r2_buckets]]
 binding = "BUCKET"
-bucket_name = "paas-user-bucket"
+# R2 disabled until enabled on this account
+# bucket_name = "paas-user-bucket"
 

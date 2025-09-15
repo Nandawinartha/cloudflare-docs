@@ -1,10 +1,11 @@
 name = "paas-dispatcher"
 main = "src/index.ts"
 compatibility_date = "2024-11-20"
+account_id = "a2aee84f5a0f8d217fe5387544f5bcb3"
 
 [[kv_namespaces]]
 binding = "TENANT_MAP"
-# id = "<fill-after-create>"
+id = "08fb4dcf77014402831de70b0f813cdd"
 
 [[dispatch_namespaces]]
 binding = "USER_WORKERS"

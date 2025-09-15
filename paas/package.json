@@ -1,0 +1,19 @@
+{
+  "name": "cf-paas-scaffold",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "deploy:dispatcher": "wrangler deploy ./dispatcher",
+    "deploy:control": "wrangler deploy ./control-api",
+    "deploy:user": "wrangler deploy ./user-template",
+    "dev:dispatcher": "wrangler dev ./dispatcher --local",
+    "dev:control": "wrangler dev ./control-api --local",
+    "dev:user": "wrangler dev ./user-template --local"
+  },
+  "devDependencies": {
+    "wrangler": "^3.80.0",
+    "typescript": "^5.5.4"
+  }
+}
+

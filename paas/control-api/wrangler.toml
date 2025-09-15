@@ -1,0 +1,11 @@
+name = "paas-control-api"
+main = "src/index.ts"
+compatibility_date = "2024-11-20"
+
+[[kv_namespaces]]
+binding = "TENANT_MAP"
+# id = "<fill-after-create>"
+
+[observability]
+enabled = true
+

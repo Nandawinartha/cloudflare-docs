@@ -7,4 +7,4 @@ account_id = "a2aee84f5a0f8d217fe5387544f5bcb3"
 enabled = true
 
 [vars]
-CONTROL_API_URL = "https://your-control-api.example.com"
+CONTROL_API_URL = "http://127.0.0.1:8788"
